@@ -1,0 +1,1357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WellPass by Deepen</title>
+<meta name="description" content="WellPass — a Deepen benefit. Discounts at partner businesses for DeepenWell users." />
+<meta name="theme-color" content="#1A1140" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #1A1140;
+    --navy-deep: #100B2E;
+    --surface: #241A5C;
+    --surface-2: #2E2172;
+    --line: #43349B;
+    --text: #F3F0FB;
+    --muted: #B3A8E0;
+    --accent: #A855F7;
+    --accent-dim: rgba(168,85,247,0.16);
+    --danger: #FF5A72;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height:100vh;
+  }
+  ::selection{ background: var(--accent); color: #fff; }
+  *:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
+  .sr-only{ position:absolute; width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+  .display{ font-family:'Inter', sans-serif; font-weight:800; letter-spacing:-0.02em; }
+  .mono{ font-family:'Inter', sans-serif; }
+
+  a{ color:inherit; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position: sticky; top:0; z-index:40;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    padding: 16px 32px;
+    background: rgba(16,11,46,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo{ display:flex; align-items:center; gap:10px; font-size:20px; }
+  .logo .wordwrap{ display:flex; flex-direction:column; line-height:1.1; }
+  .logo .by{ font-size:10.5px; font-weight:600; letter-spacing:.04em; color: var(--muted); }
+  .logo .mark{
+    width:30px;height:30px;border-radius:9px;
+    background: var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff; font-family:'Inter',sans-serif; font-weight:800; font-size:15px;
+  }
+  .logo .word{ font-family:'Inter',sans-serif; font-weight:800; letter-spacing:-0.02em; color: var(--text); }
+  .logo .word span{ color: var(--accent); }
+  .nav-right{ display:flex; align-items:center; gap:10px; }
+  .navtabs{ display:flex; gap:4px; background: var(--surface-2); padding:4px; border-radius:10px; }
+  .langswitch{ display:flex; gap:2px; background: var(--surface-2); padding:4px; border-radius:10px; }
+  .langswitch button{
+    border:none; background:transparent; color:var(--muted);
+    padding:7px 10px; border-radius:7px; font-weight:700; font-size:11.5px; letter-spacing:.3px;
+    transition: all .15s ease;
+  }
+  .langswitch button.active{ background: var(--accent); color:#fff; }
+  .langswitch button:not(.active):hover{ color: var(--text); }
+  .navtabs button{
+    border:none; background:transparent; color:var(--muted);
+    padding:9px 18px; border-radius:7px; font-weight:600; font-size:14px;
+    transition: all .18s ease;
+  }
+  .navtabs button.active{ background: var(--accent); color: #fff; }
+  .navtabs button:not(.active):hover{ color: var(--text); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 64px 32px 36px;
+    max-width: 1180px; margin:0 auto;
+    text-align:left;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    color: var(--accent); font-size:13px; font-weight:700;
+    letter-spacing:.3px;
+    margin-bottom:16px;
+    background: var(--accent-dim);
+    padding: 6px 12px 6px 10px; border-radius:999px;
+  }
+  .eyebrow::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .hero h1{
+    font-size: clamp(36px, 5.5vw, 60px);
+    font-weight:800; letter-spacing:-0.02em;
+    line-height: 1.05;
+    margin: 0 0 16px;
+  }
+  .hero h1 em{ color: var(--accent); font-style:normal; }
+  .hero p{
+    color: var(--muted); font-size:16px; max-width:560px; line-height:1.6; margin:0;
+  }
+
+  /* ---------- TIER COMPARE TABLE ---------- */
+  .compare-wrap{ max-width:1180px; margin: 28px auto 0; padding: 0 32px; }
+  .compare-title{ font-size:20px; font-weight:800; letter-spacing:-0.01em; margin: 0 0 14px; }
+  .compare-scroll{ overflow-x:auto; border:1px solid var(--line); border-radius:16px; }
+  .compare-table{ width:100%; border-collapse:collapse; min-width:640px; background: var(--surface); }
+  .compare-table th, .compare-table td{
+    padding:14px 18px; text-align:center; border-bottom:1px solid var(--line);
+  }
+  .compare-table .rowlabel{ text-align:left; color: var(--muted); font-size:13px; font-weight:600; white-space:nowrap; }
+  .compare-table thead th{ vertical-align:top; border-bottom:1px solid var(--line); background: var(--surface-2); }
+  .compare-table thead th.mine{ background: var(--accent-dim); }
+  .col-name{ font-weight:800; font-size:16px; letter-spacing:-0.01em; }
+  .col-how{ color: var(--muted); font-size:11.5px; margin-top:4px; line-height:1.4; min-height:30px; }
+  .col-select{
+    margin-top:10px; width:100%; background: transparent; border:1px solid var(--line); color: var(--text);
+    padding:7px 10px; border-radius:8px; font-size:12.5px; font-weight:700;
+  }
+  .col-select:hover{ border-color: var(--accent); color: var(--accent); }
+  .col-select.current{ background: var(--accent); border-color: var(--accent); color: #fff; }
+  .compare-table tbody td.mine{ background: var(--accent-dim); }
+  .compare-table tbody tr:last-child td{ border-bottom:none; }
+  .yes{ color: var(--accent); font-weight:800; }
+  .no{ color: var(--line); }
+  @media (max-width: 620px){ .compare-table th, .compare-table td{ padding:12px 12px; } }
+
+  /* ---------- FILTER BAR ---------- */
+  .filterbar{
+    position: sticky; top:65px; z-index:30;
+    background: rgba(26,17,64,0.92); backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--line);
+    margin-top:40px;
+  }
+  .filterbar-inner{
+    max-width:1180px; margin:0 auto; padding: 14px 32px;
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+  }
+  .search{
+    flex: 1 1 220px; position:relative;
+  }
+  .search input{
+    width:100%; background: var(--surface); border:1px solid var(--line);
+    color: var(--text); padding: 11px 14px 11px 38px; border-radius:10px;
+    font-size:14px; outline:none; transition: border-color .15s;
+  }
+  .search input:focus{ border-color: var(--accent); }
+  .search svg{ position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.45; }
+  .chips{ display:flex; gap:8px; flex-wrap:wrap; }
+  .chip{
+    border:1px solid var(--line); background: var(--surface); color: var(--muted);
+    padding: 9px 14px; border-radius: 999px; font-size:13px; font-weight:600;
+    display:flex; align-items:center; gap:6px; transition: all .15s;
+  }
+  .chip:hover{ border-color: var(--accent); color: var(--text); }
+  .chip.active{ background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+  .cityselect{
+    background: var(--surface); border:1px solid var(--line); color: var(--text);
+    padding: 10px 12px; border-radius:10px; font-size:13px; font-weight:600; outline:none;
+  }
+
+  /* ---------- GRID ---------- */
+  .grid-wrap{ max-width:1180px; margin:0 auto; padding: 28px 32px 80px; }
+  .count{ color: var(--muted); font-size:13px; margin-bottom:18px; }
+  .grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;
+  }
+  @media (max-width: 900px){ .grid{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px){ .grid{ grid-template-columns: 1fr; } }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px;
+    transition: transform .18s ease, box-shadow .18s ease;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px -14px rgba(168,85,247,0.3);
+  }
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+  .deepen-badge{
+    display:inline-flex; align-items:center; gap:4px;
+    font-size:10.5px; font-weight:700; letter-spacing:.02em;
+    color: var(--accent); background: var(--accent-dim);
+    border-radius:999px;
+    padding:3px 9px; width:fit-content; margin-top:8px;
+  }
+  .cat-icon{
+    width:40px; height:40px; border-radius:12px; background: var(--surface-2);
+    display:flex; align-items:center; justify-content:center; color: var(--accent); flex-shrink:0;
+    font-weight:700;
+  }
+  .cat-icon.logo-icon{ padding:0; overflow:hidden; position:relative; }
+  .cat-icon.logo-icon img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .logo-fallback{
+    display:none; position:absolute; inset:0; align-items:center; justify-content:center;
+    color:#fff; font-weight:700; font-size:13px;
+  }
+  .tier-chip{
+    font-size:10.5px; font-weight:700; letter-spacing:.3px; text-transform:uppercase;
+    padding:4px 10px; border-radius:999px; white-space:nowrap;
+  }
+  .tier-chip.classic{ background: var(--surface-2); color: var(--muted); }
+  .tier-chip.coach{ background: transparent; border:1px solid var(--line); color: var(--text); }
+  .tier-chip.elite{ background: transparent; border:1px solid var(--accent); color: var(--accent); }
+  .tier-chip.active{ background: var(--accent); color: #fff; }
+
+  .biz-name{ font-size:17px; font-weight:700; margin:0; letter-spacing:-0.01em; }
+  .biz-meta{ color: var(--muted); font-size:13px; display:flex; gap:6px; align-items:center; }
+  .biz-extra{ color: var(--muted); font-size:11.5px; display:flex; gap:12px; flex-wrap:wrap; }
+  .biz-links{ display:flex; gap:14px; }
+  .biz-links a{ font-size:11.5px; color: var(--accent); text-decoration:none; font-weight:700; display:flex; align-items:center; gap:4px; }
+  .biz-links a:hover{ text-decoration:underline; }
+
+  .loadmore-wrap{ display:flex; justify-content:center; margin-top:26px; }
+  .loadmore-wrap .btn{ width:auto; padding:11px 26px; }
+
+  .skeleton-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:16px; }
+  @media (max-width: 900px){ .skeleton-grid{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px){ .skeleton-grid{ grid-template-columns: 1fr; } }
+  .skeleton-card{
+    background: var(--surface); border:1px solid var(--line); border-radius:18px;
+    height:200px; position:relative; overflow:hidden;
+  }
+  .skeleton-card::after{
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(90deg, transparent, rgba(124,58,237,0.06), transparent);
+    animation: shimmer 1.4s infinite;
+  }
+  @keyframes shimmer{ from{ transform:translateX(-100%);} to{ transform:translateX(100%);} }
+
+  .discount-block{
+    display:flex; align-items:baseline; gap:8px; margin-top:2px;
+    border-top: 1px solid var(--line); padding-top:14px;
+  }
+  .discount-num{ font-weight:800; font-size:32px; color: var(--accent); line-height:1; letter-spacing:-0.02em; }
+  .discount-label{ font-size:11px; color: var(--muted); letter-spacing:.5px; text-transform:uppercase; font-weight:700; }
+
+  .redeem{ font-size:12.5px; color: var(--muted); line-height:1.4; }
+
+  .empty{
+    text-align:center; padding: 80px 20px; color: var(--muted);
+  }
+  .empty .display{ font-size:24px; color: var(--text); margin-bottom:8px; }
+
+  /* ---------- ABOUT PAGE ---------- */
+  .about-wrap{ max-width:1180px; margin:0 auto; padding: 0 32px 80px; }
+  .about-stats{ display:flex; gap:14px; margin: 8px 0 44px; flex-wrap:wrap; }
+  .stat{ background: var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px 24px; min-width:120px; }
+  .stat-num{ font-size:26px; font-weight:800; color: var(--accent); letter-spacing:-0.02em; }
+  .stat-label{ color: var(--muted); font-size:12px; margin-top:2px; }
+  .about-section{ margin-top:52px; }
+  .about-section h2{ font-size:22px; font-weight:800; letter-spacing:-0.01em; margin: 0 0 18px; }
+  .steps{ display:grid; grid-template-columns: repeat(3,1fr); gap:16px; }
+  @media (max-width: 780px){ .steps{ grid-template-columns: 1fr; } }
+  .step{ background: var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px; }
+  .step-num{
+    width:28px;height:28px; border-radius:8px; background: var(--accent-dim); color: var(--accent);
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; margin-bottom:12px;
+  }
+  .step-title{ font-weight:700; font-size:14.5px; margin-bottom:6px; }
+  .step-desc{ color: var(--muted); font-size:12.5px; line-height:1.5; }
+  .cat-grid{ display:grid; grid-template-columns: repeat(5,1fr); gap:12px; }
+  @media (max-width: 780px){ .cat-grid{ grid-template-columns: repeat(2,1fr); } }
+  .cat-tile{
+    background: var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px;
+    display:flex; flex-direction:column; align-items:center; gap:8px; color: var(--accent);
+  }
+  .cat-tile span{ color: var(--text); font-size:12.5px; font-weight:600; }
+  .faq{ display:flex; flex-direction:column; gap:10px; }
+  .faq-item{ background: var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+  .faq-q{ font-weight:700; font-size:14px; margin-bottom:6px; }
+  .faq-a{ color: var(--muted); font-size:13px; line-height:1.5; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line); padding: 26px 32px; text-align:center;
+    color: var(--muted); font-size:12.5px;
+  }
+
+  /* ---------- ADMIN ---------- */
+  .admin-wrap{ max-width: 1100px; margin: 0 auto; padding: 52px 32px 80px; }
+  .gate{
+    max-width: 380px; margin: 90px auto; text-align:center;
+    background: var(--surface); border:1px solid var(--line); border-radius:20px; padding: 40px 32px;
+  }
+  .gate .lock{ width:46px;height:46px; border-radius:14px; background:var(--accent-dim); color:var(--accent);
+    display:flex; align-items:center; justify-content:center; margin: 0 auto 18px; }
+  .gate h2{ margin: 0 0 6px; font-size:22px; font-weight:800; }
+  .gate p{ color: var(--muted); font-size:13px; margin: 0 0 22px; }
+  .gate input{
+    width:100%; background: var(--surface-2); border:1px solid var(--line); color:var(--text);
+    padding:12px 14px; border-radius:10px; text-align:center; font-size:15px; letter-spacing:2px; outline:none; margin-bottom:12px;
+  }
+  .gate input:focus{ border-color: var(--accent); }
+  .btn{
+    width:100%; background: var(--accent); color: #fff; border:none;
+    padding:12px 14px; border-radius:10px; font-weight:700; font-size:14px;
+  }
+  .btn:hover{ filter: brightness(1.08); }
+  .btn.secondary{ background: var(--surface); border:1px solid var(--line); color: var(--text); }
+  .btn.danger{ background: var(--danger); color: #fff; }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .gate .hint{ margin-top:16px; font-size:11px; color: var(--muted); }
+  .err{ color: var(--danger); font-size:12.5px; margin: -6px 0 12px; }
+
+  .admin-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:26px; flex-wrap:wrap; gap:12px; }
+  .admin-head h2{ margin:0; font-size:26px; font-weight:800; }
+  .admin-head p{ margin:4px 0 0; color: var(--muted); font-size:13px; }
+  .admin-toolbar{ display:flex; gap:10px; flex-wrap:wrap; }
+  .btn.small{ width:auto; padding:9px 16px; font-size:12.5px; display:flex; align-items:center; gap:6px; }
+  .lastupdated{ color: var(--muted); font-size:11.5px; margin-top:4px; }
+
+
+  .table-wrap{ background: var(--surface); border:1px solid var(--line); border-radius:16px; overflow-x:auto; overflow-y:hidden; }
+  .table-wrap table{ min-width:640px; }
+  table{ width:100%; border-collapse:collapse; font-size:13.5px; }
+  th{ text-align:left; padding:13px 16px; color: var(--muted); font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:.4px; border-bottom:1px solid var(--line); background: var(--surface-2); }
+  td{ padding:13px 16px; border-bottom:1px solid var(--line); vertical-align:middle; }
+  tr:last-child td{ border-bottom:none; }
+  .rowbtns{ display:flex; gap:8px; }
+  .iconbtn{
+    background: var(--surface-2); border:1px solid var(--line); color: var(--muted);
+    width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+  }
+  .iconbtn:hover{ color: var(--text); border-color: var(--accent); }
+  .iconbtn.del:hover{ color: var(--danger); border-color: var(--danger); }
+
+  .modal-overlay{
+    position:fixed; inset:0; background: rgba(6,5,26,0.7); backdrop-filter: blur(4px);
+    display:flex; align-items:center; justify-content:center; z-index:100; padding:20px;
+  }
+  .modal{
+    background: var(--surface); border:1px solid var(--line); border-radius:18px;
+    padding: 28px; width:100%; max-width:460px;
+  }
+  .modal h3{ margin:0 0 20px; font-size:19px; font-weight:800; }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:12px; color: var(--muted); font-weight:600; margin-bottom:6px; }
+  .field input, .field select{
+    width:100%; background: var(--surface-2); border:1px solid var(--line); color: var(--text);
+    padding:10px 12px; border-radius:9px; font-size:14px; outline:none;
+  }
+  .field input:focus, .field select:focus{ border-color: var(--accent); }
+  .field-row{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+  .modal-actions{ display:flex; gap:10px; margin-top: 22px; }
+  .confirm-modal .confirm-msg{ color: var(--muted); font-size:13.5px; line-height:1.5; margin:0; }
+
+  .addbtn{ display:flex; align-items:center; gap:8px; }
+
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+    background: var(--accent); color: #fff; padding: 12px 22px;
+    border-radius: 999px; font-weight:700; font-size:13.5px; z-index:200;
+    box-shadow: 0 10px 30px -8px rgba(168,85,247,0.5);
+    animation: rise .25s ease;
+  }
+  @keyframes rise{ from{ opacity:0; transform: translate(-50%, 10px);} to{ opacity:1; transform: translate(-50%,0);} }
+
+  .loading{ text-align:center; padding:80px 20px; color: var(--muted); }
+  .spin{ width:26px;height:26px; border-radius:50%; border:2.5px solid var(--line); border-top-color: var(--accent);
+    animation: spin .7s linear infinite; margin: 0 auto 14px; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">
+    <div class="mark">W</div>
+    <div class="wordwrap">
+      <div class="word">WELL<span>PASS</span></div>
+      <div class="by" id="byLabel">By Deepen</div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="navtabs" role="tablist" aria-label="Site sections">
+      <button id="tab-directory" class="active" role="tab" aria-selected="true"></button>
+      <button id="tab-about" role="tab" aria-selected="false"></button>
+      <button id="tab-admin" role="tab" aria-selected="false"></button>
+    </div>
+    <div class="langswitch" id="langSwitch" role="group" aria-label="Language">
+      <button data-lang="en">EN</button>
+      <button data-lang="ru">RU</button>
+      <button data-lang="uz">UZ</button>
+    </div>
+  </div>
+</nav>
+
+<main id="app"></main>
+
+<footer id="siteFooter">WellPass — a Deepen benefit.</footer>
+
+<script>
+(function(){
+
+  var CATEGORIES = [
+    { id: 'gyms', key: 'catGyms', icon: iconDumbbell },
+    { id: 'sport', key: 'catSport', icon: iconSneaker },
+    { id: 'food', key: 'catFood', icon: iconChef },
+    { id: 'wellness', key: 'catWellness', icon: iconLeaf },
+    { id: 'apparel', key: 'catApparel', icon: iconBag }
+  ];
+
+  // Single source of truth for the tier ladder — update here only.
+  // Requirements are NOT cumulative by product ownership: Elite is an "or", Active (top) is an "and".
+  var TIERS = {
+    classic: { label: 'Classic', order: 0, howKey: 'howClassic', discount: '15%', directory: true, priority: false, events: false },
+    coach:   { label: 'Coach',   order: 1, howKey: 'howCoach', discount: '20%', directory: true, priority: false, events: false },
+    elite:   { label: 'Elite',   order: 2, howKey: 'howElite', discount: '25%', directory: true, priority: true, events: false },
+    active:  { label: 'Active',  order: 3, howKey: 'howActive', discount: '30%', directory: true, priority: true, events: true }
+  };
+
+  var STORAGE_KEY = 'wellpass:businesses:v5';
+  var ADMIN_CODE = 'DEEPEN2026';
+
+  var state = {
+    tab: 'directory',
+    lang: 'en', // 'en'|'ru'|'uz'
+    businesses: null, // null = loading
+    lastUpdated: null,
+    search: '',
+    category: 'all',
+    city: 'all',
+    sort: 'tier',
+    myTier: null, // 'classic'|'coach'|'elite'|'active'|null
+    visibleCount: 9,
+    unlocked: false,
+    passInput: '',
+    passError: '',
+    failedAttempts: 0,
+    lockedUntil: 0,
+    modal: null, // {mode:'add'|'edit', data:{}}
+    confirmDialog: null, // {title, message, onYes}
+    toast: null
+  };
+
+  // ---------------- i18n ----------------
+  var LANG_KEY = 'wellpass:lang'; // per-user, never shared
+  var STRINGS = {
+    en: {
+      navDirectory: 'Directory', navAbout: 'About', navAdmin: 'Admin', byDeepen: 'By Deepen',
+      heroEyebrow: 'A Deepen Benefit', heroTitle1: 'Your card.', heroTitleEm: 'Their discount.',
+      heroSub: 'Show your WellPass at any partner below for an automatic discount.',
+      yourTierLabel: 'Your Tier:', notSet: 'Not set', selectBtn: 'Select', yourTierBtn: 'Your tier',
+      searchPlaceholder: 'Search partner businesses…', filterCity: 'Filter by city', filterSort: 'Sort by',
+      all: 'All', allCities: 'All cities',
+      sortTier: 'Sort: Tier', sortDiscount: 'Sort: Highest discount', sortAZ: 'Sort: A–Z',
+      partnersAvailable: 'partners available', partnerAvailable: 'partner available',
+      noMatches: 'No matches', noMatchesDesc: 'Try a different search, category, or city.',
+      showMore: 'Show more', left: 'left',
+      directions: 'Directions', deepenPartner: 'A Deepen Partner',
+      compareTitle: 'Compare tiers & benefits', maxDiscount: 'Max discount', fullDirectory: 'Full partner directory',
+      priorityBooking: 'Priority booking', exclusiveEvents: 'Exclusive partner events',
+      catGyms: 'Gyms', catSport: 'Sport', catFood: 'Food', catWellness: 'Wellness', catApparel: 'Apparel',
+      howClassic: 'Automatic for every DeepenWell user', howCoach: 'Use the DeepenAI Coach',
+      howElite: 'DeepView subscription or gym membership', howActive: 'DeepView + gym membership + AI Coach',
+      whatIsTitle1: 'What is', whatIsTitleEm: 'WellPass', whatIsIntro: 'WellPass is a Deepen benefit built into DeepenWell. Every user gets a tier automatically, and shows it at partner businesses for an instant discount — no coupons, no extra cost.',
+      statPartnerLocations: 'Partner locations', statPartnerLocation: 'Partner location', statCities: 'Cities', statCity: 'City', statTiers: 'Tiers',
+      howItWorks: 'How it works',
+      step1Title: 'Use DeepenWell', step1Desc: 'Run, walk, train, or use the DeepenAI Coach and DeepView — your normal activity.',
+      step2Title: 'Your tier is set automatically', step2Desc: 'More engagement unlocks the next tier, from Classic up to Active. No sign-up needed.',
+      step3Title: 'Show WellPass, get the discount', step3Desc: 'Show your pass at any partner in the Directory — the discount applies on the spot.',
+      partnerCategories: 'Partner categories', faqTitle: 'FAQ',
+      faqQ1: 'Does WellPass cost anything?', faqA1: 'No — it\'s included automatically for every DeepenWell user.',
+      faqQ2: 'How do I raise my tier?', faqA2: 'Keep using DeepenWell: run or walk, try the AI Coach, or add a DeepView or gym subscription.',
+      faqQ3: 'How do I redeem a discount?', faqA3: 'Show your WellPass at the partner listed in the Directory — each one shows exactly how to redeem.',
+      faqQ4: 'Can my business become a partner?', faqA4: 'Reach out to the Deepen team to get listed in the Directory.',
+      adminAccessTitle: 'Admin access', adminAccessDesc: 'Enter the team passcode to manage partner businesses.',
+      passcodePlaceholder: 'Passcode', unlock: 'Unlock', locked: 'Locked', incorrectPass: 'Incorrect passcode. Try again.',
+      tooManyAttempts: 'Too many attempts. Try again in 30 seconds.',
+      adminHint: 'Prototype passcode only — replace with real server-side auth before launch.',
+      partnerBusinesses: 'Partner businesses', updated: 'Updated', never: 'never',
+      exportJson: 'Export JSON', importJson: 'Import JSON', addBusiness: 'Add business',
+      colName: 'Name', colCategory: 'Category', colCity: 'City', colDiscount: 'Discount', colTier: 'Tier',
+      edit: 'Edit', remove: 'Remove', noBusinesses: 'No businesses yet. Add your first partner.',
+      addBusinessTitle: 'Add business', editBusinessTitle: 'Edit business',
+      fieldName: 'Name', fieldCategory: 'Category', fieldCity: 'City', fieldDiscount: 'Discount %',
+      fieldTier: 'Required tier', fieldRedeem: 'How to redeem', fieldAddress: 'Address (optional)', fieldLogoUrl: 'Logo URL (optional)',
+      fieldHours: 'Hours (optional)', fieldPhone: 'Phone (optional)',
+      placeholderRedeem: 'e.g. Show WellPass at front desk', placeholderAddress: 'e.g. Bunyodkor avenue 52, Chilanzar district',
+      placeholderHours: 'e.g. Daily 9:00–21:00', placeholderPhone: 'e.g. +998 71 200 1122',
+      fillEveryField: 'Fill in every field — discount must be a number between 0 and 100.',
+      save: 'Save', cancel: 'Cancel', footerText: 'WellPass — a Deepen benefit.',
+      confirmReplaceTitle: 'Replace all businesses?', confirmReplaceMsg: 'This replaces the current {n} businesses with {m} from this file.',
+      confirmDeleteTitle: 'Remove this business?', confirmDeleteMsg: 'Remove "{name}" from WellPass? This can\'t be undone.',
+      confirmBtn: 'Confirm', invalidImportFile: 'That file doesn\'t look like a valid WellPass export.'
+    },
+    ru: {
+      navDirectory: 'Каталог', navAbout: 'О нас', navAdmin: 'Админ', byDeepen: 'От Deepen',
+      heroEyebrow: 'Бонус от Deepen', heroTitle1: 'Ваша карта.', heroTitleEm: 'Их скидка.',
+      heroSub: 'Покажите WellPass у любого партнёра ниже и получите скидку автоматически.',
+      yourTierLabel: 'Ваш уровень:', notSet: 'Не выбран', selectBtn: 'Выбрать', yourTierBtn: 'Ваш уровень',
+      searchPlaceholder: 'Поиск партнёров…', filterCity: 'Фильтр по городу', filterSort: 'Сортировка',
+      all: 'Все', allCities: 'Все города',
+      sortTier: 'Сорт.: Уровень', sortDiscount: 'Сорт.: Скидка', sortAZ: 'Сорт.: А–Я',
+      partnersAvailable: 'партнёров доступно', partnerAvailable: 'партнёр доступен',
+      noMatches: 'Ничего не найдено', noMatchesDesc: 'Попробуйте другой запрос, категорию или город.',
+      showMore: 'Показать ещё', left: 'осталось',
+      directions: 'Маршрут', deepenPartner: 'Партнёр Deepen',
+      compareTitle: 'Сравнение уровней и льгот', maxDiscount: 'Макс. скидка', fullDirectory: 'Полный доступ к каталогу',
+      priorityBooking: 'Приоритетная запись', exclusiveEvents: 'Закрытые мероприятия партнёров',
+      catGyms: 'Залы', catSport: 'Спорт', catFood: 'Еда', catWellness: 'Велнес', catApparel: 'Одежда',
+      howClassic: 'Автоматически для всех пользователей DeepenWell', howCoach: 'Используйте DeepenAI Coach',
+      howElite: 'Подписка DeepView или абонемент в зал', howActive: 'DeepView + абонемент в зал + AI Coach',
+      whatIsTitle1: 'Что такое', whatIsTitleEm: 'WellPass', whatIsIntro: 'WellPass — бонус от Deepen, встроенный в DeepenWell. Каждый пользователь автоматически получает уровень и показывает его у партнёров для мгновенной скидки — без купонов и доплат.',
+      statPartnerLocations: 'Точек партнёров', statPartnerLocation: 'Точка партнёра', statCities: 'Городов', statCity: 'Город', statTiers: 'Уровня',
+      howItWorks: 'Как это работает',
+      step1Title: 'Пользуйтесь DeepenWell', step1Desc: 'Бегайте, ходите, тренируйтесь или используйте DeepenAI Coach и DeepView — как обычно.',
+      step2Title: 'Уровень определяется автоматически', step2Desc: 'Чем больше активность, тем выше уровень — от Classic до Active. Регистрация не нужна.',
+      step3Title: 'Покажите WellPass — получите скидку', step3Desc: 'Покажите пасс у любого партнёра из каталога — скидка применяется сразу.',
+      partnerCategories: 'Категории партнёров', faqTitle: 'Частые вопросы',
+      faqQ1: 'WellPass платный?', faqA1: 'Нет — он включён автоматически для всех пользователей DeepenWell.',
+      faqQ2: 'Как повысить уровень?', faqA2: 'Продолжайте пользоваться DeepenWell: бегайте, ходите, используйте AI Coach или подключите DeepView / абонемент в зал.',
+      faqQ3: 'Как получить скидку?', faqA3: 'Покажите WellPass у партнёра из каталога — у каждого указано, как именно.',
+      faqQ4: 'Можно ли стать партнёром?', faqA4: 'Свяжитесь с командой Deepen, чтобы попасть в каталог.',
+      adminAccessTitle: 'Доступ для админа', adminAccessDesc: 'Введите код команды для управления партнёрами.',
+      passcodePlaceholder: 'Код доступа', unlock: 'Войти', locked: 'Заблокировано', incorrectPass: 'Неверный код. Попробуйте снова.',
+      tooManyAttempts: 'Слишком много попыток. Повторите через 30 секунд.',
+      adminHint: 'Код только для прототипа — замените на серверную авторизацию перед запуском.',
+      partnerBusinesses: 'Партнёрские заведения', updated: 'Обновлено', never: 'никогда',
+      exportJson: 'Экспорт JSON', importJson: 'Импорт JSON', addBusiness: 'Добавить заведение',
+      colName: 'Название', colCategory: 'Категория', colCity: 'Город', colDiscount: 'Скидка', colTier: 'Уровень',
+      edit: 'Изменить', remove: 'Удалить', noBusinesses: 'Пока нет заведений. Добавьте первого партнёра.',
+      addBusinessTitle: 'Добавить заведение', editBusinessTitle: 'Изменить заведение',
+      fieldName: 'Название', fieldCategory: 'Категория', fieldCity: 'Город', fieldDiscount: 'Скидка %',
+      fieldTier: 'Нужный уровень', fieldRedeem: 'Как получить скидку', fieldAddress: 'Адрес (необязательно)', fieldLogoUrl: 'Ссылка на логотип (необязательно)',
+      fieldHours: 'Часы работы (необязательно)', fieldPhone: 'Телефон (необязательно)',
+      placeholderRedeem: 'напр. Покажите WellPass на ресепшене', placeholderAddress: 'напр. пр. Бунёдкор 52, Чиланзарский район',
+      placeholderHours: 'напр. Ежедневно 9:00–21:00', placeholderPhone: 'напр. +998 71 200 1122',
+      fillEveryField: 'Заполните все поля — скидка должна быть числом от 0 до 100.',
+      save: 'Сохранить', cancel: 'Отмена', footerText: 'WellPass — бонус от Deepen.',
+      confirmReplaceTitle: 'Заменить все заведения?', confirmReplaceMsg: 'Текущие {n} заведений будут заменены на {m} из файла.',
+      confirmDeleteTitle: 'Удалить заведение?', confirmDeleteMsg: 'Удалить «{name}» из WellPass? Это необратимо.',
+      confirmBtn: 'Подтвердить', invalidImportFile: 'Этот файл не похож на корректный экспорт WellPass.'
+    },
+    uz: {
+      navDirectory: 'Katalog', navAbout: 'Biz haqimizda', navAdmin: 'Admin', byDeepen: 'Deepen tomonidan',
+      heroEyebrow: "Deepen bonusi", heroTitle1: 'Sizning kartangiz.', heroTitleEm: 'Ularning chegirmasi.',
+      heroSub: "WellPass'ni istalgan hamkorda ko'rsating va chegirma avtomatik qo'llanadi.",
+      yourTierLabel: 'Sizning darajangiz:', notSet: "Tanlanmagan", selectBtn: 'Tanlash', yourTierBtn: 'Sizning darajangiz',
+      searchPlaceholder: 'Hamkorlarni qidirish…', filterCity: 'Shahar bo\'yicha filtr', filterSort: 'Saralash',
+      all: 'Barchasi', allCities: 'Barcha shaharlar',
+      sortTier: "Saralash: Daraja", sortDiscount: 'Saralash: Eng katta chegirma', sortAZ: 'Saralash: A–Z',
+      partnersAvailable: 'ta hamkor mavjud', partnerAvailable: 'ta hamkor mavjud',
+      noMatches: 'Hech narsa topilmadi', noMatchesDesc: "Boshqa qidiruv, kategoriya yoki shaharni sinab ko'ring.",
+      showMore: "Ko'proq ko'rsatish", left: 'qoldi',
+      directions: "Yo'nalish", deepenPartner: 'Deepen hamkori',
+      compareTitle: 'Darajalar va imtiyozlarni solishtirish', maxDiscount: 'Maksimal chegirma', fullDirectory: "To'liq katalog kirish",
+      priorityBooking: 'Ustuvor bron qilish', exclusiveEvents: 'Hamkorlarning maxsus tadbirlari',
+      catGyms: 'Sport zallari', catSport: 'Sport', catFood: 'Ovqat', catWellness: 'Sog\'lomlashtirish', catApparel: 'Kiyim',
+      howClassic: 'Har bir DeepenWell foydalanuvchisi uchun avtomatik', howCoach: "DeepenAI Coach'dan foydalaning",
+      howElite: "DeepView obunasi yoki sport zali a'zoligi", howActive: "DeepView + sport zali a'zoligi + AI Coach",
+      whatIsTitle1: 'Bu nima —', whatIsTitleEm: 'WellPass', whatIsIntro: "WellPass — DeepenWell'ga o'rnatilgan Deepen bonusi. Har bir foydalanuvchi avtomatik daraja oladi va hamkor korxonalarda uni ko'rsatib, darhol chegirma oladi — kupon yo'q, qo'shimcha to'lov yo'q.",
+      statPartnerLocations: 'Hamkor manzillari', statPartnerLocation: 'Hamkor manzili', statCities: 'Shaharlar', statCity: 'Shahar', statTiers: 'Daraja',
+      howItWorks: 'Bu qanday ishlaydi',
+      step1Title: "DeepenWell'dan foydalaning", step1Desc: "Yuguring, yuring, mashq qiling yoki DeepenAI Coach va DeepView'dan foydalaning — oddiy faoliyatingiz.",
+      step2Title: 'Darajangiz avtomatik belgilanadi', step2Desc: "Ko'proq faollik keyingi darajani ochadi — Classic'dan Active'gacha. Ro'yxatdan o'tish shart emas.",
+      step3Title: "WellPass'ni ko'rsating, chegirma oling", step3Desc: 'Katalogdagi istalgan hamkorda pasingizni ko\'rsating — chegirma darhol qo\'llanadi.',
+      partnerCategories: 'Hamkor kategoriyalari', faqTitle: 'Savol-javob',
+      faqQ1: "WellPass pullikmi?", faqA1: "Yo'q — u har bir DeepenWell foydalanuvchisi uchun avtomatik ravishda qo'shilgan.",
+      faqQ2: 'Darajamni qanday oshiraman?', faqA2: "DeepenWell'dan foydalanishda davom eting: yuguring, yuring, AI Coach'ni sinab ko'ring yoki DeepView / sport zali obunasini qo'shing.",
+      faqQ3: 'Chegirmani qanday olaman?', faqA3: "Katalogdagi hamkorda WellPass'ni ko'rsating — har birida qanday olish aniq ko'rsatilgan.",
+      faqQ4: "Biznesim hamkor bo'la oladimi?", faqA4: "Katalogga qo'shilish uchun Deepen jamoasi bilan bog'laning.",
+      adminAccessTitle: 'Admin kirishi', adminAccessDesc: "Hamkorlarni boshqarish uchun jamoa parolini kiriting.",
+      passcodePlaceholder: 'Parol', unlock: 'Kirish', locked: 'Bloklangan', incorrectPass: "Noto'g'ri parol. Qayta urinib ko'ring.",
+      tooManyAttempts: "Juda ko'p urinish. 30 soniyadan so'ng qayta urinib ko'ring.",
+      adminHint: "Faqat prototip uchun parol — ishga tushirishdan oldin haqiqiy server autentifikatsiyasi bilan almashtiring.",
+      partnerBusinesses: 'Hamkor korxonalar', updated: 'Yangilangan', never: "hech qachon",
+      exportJson: 'JSON eksport', importJson: 'JSON import', addBusiness: "Hamkor qo'shish",
+      colName: 'Nomi', colCategory: 'Kategoriya', colCity: 'Shahar', colDiscount: 'Chegirma', colTier: 'Daraja',
+      edit: 'Tahrirlash', remove: "O'chirish", noBusinesses: "Hozircha hamkor yo'q. Birinchi hamkoringizni qo'shing.",
+      addBusinessTitle: "Hamkor qo'shish", editBusinessTitle: 'Hamkorni tahrirlash',
+      fieldName: 'Nomi', fieldCategory: 'Kategoriya', fieldCity: 'Shahar', fieldDiscount: 'Chegirma %',
+      fieldTier: 'Talab qilinadigan daraja', fieldRedeem: 'Qanday olish', fieldAddress: 'Manzil (ixtiyoriy)', fieldLogoUrl: 'Logotip havolasi (ixtiyoriy)',
+      fieldHours: 'Ish vaqti (ixtiyoriy)', fieldPhone: 'Telefon (ixtiyoriy)',
+      placeholderRedeem: "masalan, Qabulxonada WellPass'ni ko'rsating", placeholderAddress: "masalan, Bunyodkor shoh ko'chasi 52, Chilonzor tumani",
+      placeholderHours: 'masalan, Har kuni 9:00–21:00', placeholderPhone: 'masalan, +998 71 200 1122',
+      fillEveryField: "Barcha maydonlarni to'ldiring — chegirma 0 dan 100 gacha son bo'lishi kerak.",
+      save: 'Saqlash', cancel: 'Bekor qilish', footerText: 'WellPass — Deepen bonusi.',
+      confirmReplaceTitle: 'Barcha hamkorlar almashtirilsinmi?', confirmReplaceMsg: 'Joriy {n} ta hamkor fayldagi {m} ta bilan almashtiriladi.',
+      confirmDeleteTitle: "Hamkor o'chirilsinmi?", confirmDeleteMsg: '"{name}" WellPass\'dan o\'chirilsinmi? Buni qaytarib bo\'lmaydi.',
+      confirmBtn: 'Tasdiqlash', invalidImportFile: "Bu fayl WellPass eksporti ko'rinishida emas."
+    }
+  };
+  function t(key){
+    var d = STRINGS[state.lang] || STRINGS.en;
+    return (d && d[key] !== undefined) ? d[key] : (STRINGS.en[key] !== undefined ? STRINGS.en[key] : key);
+  }
+
+  var VOKEBOWL_LOGO = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAB4AHgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDxGiiiu0/PAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACirGm2N5qV7HZafazXd1KSI4YULO5xngDrwDVdgQSCMEcGlfoOztcKKKsWVje3q3DWdpPcC2hM85jQt5UY6u2OijI5obsCTeiK9FFFMQUUUUAFFFWNSsL3Tbs2moWk9pcKqsYpkKsAwBU4PYggj60vIdna5XooopiCr/h3SL3XtatdH05YmvLt/LhWSQRqzdhuPAzVCpbK5nsryG8tZDHPBIssTjqrKcg/mBSd7aFQtzLm2NPRfDGtaxrdxo1laA3tskrzrJIsaxLF/rCzMcDGKveGfAXi3xHp/8AaGkaPJNZltizySJEjt6KXI3H6Zr0v4g6jpVh4J1PxppEqJqHjyKGERJwbdVXN2B9XAH41znxqtr+8fw1daVBcT+Gm0e2j0zyEZ4kYLiVcDgSb85zzXHHETnbp/wNz1J4KlSTbbdtdOz2/DX5orfBzS9R0b436Jp2rWU9leQzyCSGZNrL+5f9Pfoa5LSvD2r62dRuNPtd9vYK013PJIscUK5ONzsQMnsOp7CvadCFzD4z+FFprhb/AISKG0uftYlOZkgKuYFkzzuC54POK5Hx0ra58OLS58FkxeH9Mz/aulJ/rre6JP8ApEx6yq3Z+i9MDtMazc79/wDN/n0NZ4SKpWvs27ddo/l1OT8P/D/xdr2mpqOmaOz2srFYZZZo4RMR1Ee9gX/DNb3wu06/tJvHWmXVnPDfR+G7uJ7d0IkD7kG3b1zmum+Kd14XWfw9NdeD9U1axl0e1XTbm11R4YdoTBREVGAYNnODknmtfSLzXtQ+IfiJoNFm0PXB4N8qCGS7E0zOAnlOzYGJCpUYPOQM1M685wd9v+CXSwlKnUXK7tfqn5fdqzyjXvhz410TSH1bU9AuILOPHnOHRzDn/noqklPxFZ3hXwp4h8USzR6Fpct2IADNJuVI4gem52IUfnXb/Ayz1W08VatdanBe2+jw6XdjWDcoyIVMZAV93Vt2MZ561BqMN9efAPQF0JJpbS2v7n+24oASwnJHlNKBzt2dCeK19tNPl06a+pyrCUpR57O1np10t5efbozmbvwJ4rtPEdj4eu9Ikt9Qvzi0WSRBHP8A7kmdh/Osi10jUrrUZ9Pt7KWS7t1leWID5kEQJkJ+gU/lXokEmp6P8Ckl1Zpra4/t6G48PLMCsibFzK6A8iPOPYmum1jXdM8Kk/E/TEt5brxWbcxWhAPkqMNfqR/tMoQf7xo+sT2tfp8yvqVJ2d7LRu/RP/g/mjxjS9E1PVdO1O+sbcSW2m232i7kLqojQnA6nkk8ADk11nx7/wCSl3Q/6crP/wBJo62fijb6b4O8E/8ACN6JdJOniK8bVmkU8ixX/j1jP5kn3Wsb49nPxLuz/wBOVl/6TR06dR1Kil01/QmtQVGhKHW8b/8Ak36HB0UUV1nlhRRRQBNLdXMtrBayzyPBb7/JjJ+WPcctgdskZNa3h3xh4p8OwSQaFr+oadDIdzxwTEIT646A+4rDoqXFNWaLjUnF80XZmjaa9rNrrw16DU7oaoHMgu2k3S7iCCcnOTgkUmia5q+iXz3uk6hPZ3EkbRu8R++jfeUg8EH0NZ9FHLHawe1ne9ze0Hxp4s0G1e00bxDqFhbuxcxQy4QMepA6KfpiqNtrmr29xfXEOpXSzX8TQ3cnmEvOjEFgxPJyQPfis+ilyR7D9tUdveehv61418Xa1pi6Zq3iTU76yXGIZpyynHTP97Hvmqfh7xBrfh28a70LVbzTp2Xa728pXcPQjoR9azKKOSNrW0B1qjlzOTuaGva3q+vXpvta1K61C5I2+ZcSFyB6D0HsKqS3VxLbQW0k8jw2+7yULZVNxy2B2yeTUVFUopKyJlOUm23uS3NzPciIXEzyiKJYY95zsjGcKPYZPHvU2sanqGsXzX2p3ct3csqoZZDliqqFUfgAB+FVKKLIOeVrXCiiimSFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf/9k=';
+  var SEED = [
+    { id: 1, name: 'Vokebowl — Chilanzar', category: 'food', city: 'Tashkent', discount: 20, tier: 'classic', redeem: 'Show WellPass at checkout', hours: 'Daily 10:00–22:00', phone: '+998 94 678 0880', address: 'Bunyodkor avenue, Chilanzar-C block 52, Chilanzar district', logoUrl: VOKEBOWL_LOGO },
+    { id: 2, name: 'Vokebowl — Mirabad', category: 'food', city: 'Tashkent', discount: 20, tier: 'classic', redeem: 'Show WellPass at checkout', hours: 'Daily 10:00–22:00', phone: '+998 94 678 0880', address: 'Mirabad Street 1, Mirabad district', logoUrl: VOKEBOWL_LOGO },
+    { id: 3, name: 'Vokebowl — Qorasuv', category: 'food', city: 'Tashkent', discount: 20, tier: 'classic', redeem: 'Show WellPass at checkout', hours: 'Daily 10:00–22:00', phone: '+998 94 678 0880', address: 'Sh.Burkhanov Street 18, Qorasuv-2, Mirzo Ulugbek district', logoUrl: VOKEBOWL_LOGO }
+  ];
+
+  // ---------------- STORAGE ADAPTER ----------------
+  // window.storage only exists inside a Claude artifact. If this file is ever
+  // hosted as a standalone site, fall back to localStorage so it keeps working
+  // (as a single-browser cache) instead of breaking. Swap this adapter for real
+  // API calls to your backend when you move off the Claude prototype.
+  var hasArtifactStorage = (typeof window.storage !== 'undefined');
+  var storageAdapter = {
+    get: async function(key){
+      if(hasArtifactStorage){
+        try{ var r = await window.storage.get(key, true); return r ? r.value : null; }
+        catch(e){ return null; }
+      }
+      try{ return window.localStorage.getItem(key); } catch(e){ return null; }
+    },
+    set: async function(key, value){
+      if(hasArtifactStorage){
+        try{ await window.storage.set(key, value, true); return true; }
+        catch(e){ return false; }
+      }
+      try{ window.localStorage.setItem(key, value); return true; } catch(e){ return false; }
+    }
+  };
+  var LOCAL_KEY = 'wellpass:mytier'; // per-user, never shared
+
+  function hashColor(str){
+    var hash = 0;
+    for(var i=0;i<str.length;i++){ hash = str.charCodeAt(i) + ((hash<<5)-hash); }
+    var hue = Math.abs(hash) % 360;
+    return 'hsl('+hue+', 62%, 42%)';
+  }
+  function initials(name){
+    var words = name.trim().split(/\s+/).filter(function(w){ return /[A-Za-z0-9\u00C0-\u024F\u0400-\u04FF]/.test(w); });
+    return ((words[0]||'')[0]||'').toUpperCase() + ((words[1]||'')[0]||'').toUpperCase();
+  }
+  function mapsUrl(name, city, address){
+    var q = address ? (name + ', ' + address) : (name + ' ' + city);
+    return 'https://www.google.com/maps/search/' + encodeURIComponent(q);
+  }
+  function debounce(fn, ms){
+    var t;
+    return function(){
+      var args = arguments;
+      clearTimeout(t);
+      t = setTimeout(function(){ fn.apply(null, args); }, ms);
+    };
+  }
+
+  var app = document.getElementById('app');
+  var tabDir = document.getElementById('tab-directory');
+  var tabAbout = document.getElementById('tab-about');
+  var tabAdmin = document.getElementById('tab-admin');
+  var langSwitch = document.getElementById('langSwitch');
+
+  tabDir.addEventListener('click', function(){ state.tab='directory'; render(); });
+  tabAbout.addEventListener('click', function(){ state.tab='about'; render(); });
+  tabAdmin.addEventListener('click', function(){ state.tab='admin'; render(); });
+  langSwitch.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){ saveLang(b.getAttribute('data-lang')); });
+  });
+
+  function saveLang(lang){
+    state.lang = lang;
+    storageAdapter.set(LANG_KEY, lang);
+    state.visibleCount = 9;
+    render();
+  }
+
+  async function loadBusinesses(){
+    try{
+      var raw = await storageAdapter.get(STORAGE_KEY);
+      var parsed = raw ? JSON.parse(raw) : null;
+      state.businesses = parsed && parsed.businesses ? parsed.businesses : null;
+      state.lastUpdated = parsed ? parsed.lastUpdated : null;
+    } catch(e){
+      state.businesses = null;
+    }
+    if(!state.businesses || !state.businesses.length){
+      state.businesses = SEED.slice();
+      await saveBusinesses();
+    }
+    try{
+      var myTierRaw = await storageAdapter.get(LOCAL_KEY);
+      if(myTierRaw && TIERS[myTierRaw]) state.myTier = myTierRaw;
+    } catch(e){}
+    try{
+      var langRaw = await storageAdapter.get(LANG_KEY);
+      if(langRaw && STRINGS[langRaw]) state.lang = langRaw;
+    } catch(e){}
+    render();
+  }
+
+  async function saveBusinesses(){
+    state.lastUpdated = new Date().toISOString();
+    var ok = await storageAdapter.set(STORAGE_KEY, JSON.stringify({ businesses: state.businesses, lastUpdated: state.lastUpdated }));
+    if(!ok) showToast('Saved locally only — sync failed');
+  }
+
+  function saveMyTier(tier){
+    state.myTier = tier;
+    if(tier){ storageAdapter.set(LOCAL_KEY, tier); }
+    render();
+  }
+
+  function formatLastUpdated(iso){
+    if(!iso) return 'never';
+    var d = new Date(iso);
+    return d.toLocaleString();
+  }
+
+  function showToast(msg){
+    state.toast = msg;
+    render();
+    setTimeout(function(){ state.toast = null; renderToastOnly(); }, 1800);
+  }
+
+  function renderToastOnly(){
+    var el = document.getElementById('toast-el');
+    if(el) el.remove();
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function render(){
+    document.getElementById('byLabel').textContent = t('byDeepen');
+    document.getElementById('siteFooter').textContent = t('footerText');
+    tabDir.textContent = t('navDirectory');
+    tabAbout.textContent = t('navAbout');
+    tabAdmin.textContent = t('navAdmin');
+    tabDir.classList.toggle('active', state.tab==='directory');
+    tabAbout.classList.toggle('active', state.tab==='about');
+    tabAdmin.classList.toggle('active', state.tab==='admin');
+    tabDir.setAttribute('aria-selected', state.tab==='directory');
+    tabAbout.setAttribute('aria-selected', state.tab==='about');
+    tabAdmin.setAttribute('aria-selected', state.tab==='admin');
+    langSwitch.querySelectorAll('button').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang')===state.lang);
+    });
+    if(state.tab === 'directory'){
+      app.innerHTML = renderDirectory();
+      wireDirectory();
+    } else if(state.tab === 'about'){
+      app.innerHTML = renderAbout();
+      wireAbout();
+    } else {
+      app.innerHTML = renderAdmin();
+      wireAdmin();
+    }
+    if(state.toast){
+      var toastEl = document.createElement('div');
+      toastEl.className = 'toast';
+      toastEl.id = 'toast-el';
+      toastEl.textContent = state.toast;
+      document.body.appendChild(toastEl);
+    }
+  }
+
+  // ---------------- DIRECTORY ----------------
+
+  function getFiltered(){
+    var list = state.businesses || [];
+    var q = state.search.trim().toLowerCase();
+    var out = list.filter(function(b){
+      if(state.category !== 'all' && b.category !== state.category) return false;
+      if(state.city !== 'all' && b.city !== state.city) return false;
+      if(q && b.name.toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+    if(state.sort === 'discount'){
+      out.sort(function(a,b){ return b.discount - a.discount; });
+    } else if(state.sort === 'az'){
+      out.sort(function(a,b){ return a.name.localeCompare(b.name); });
+    } else {
+      out.sort(function(a,b){ return TIERS[b.tier].order - TIERS[a.tier].order; });
+    }
+    return out;
+  }
+
+  function renderDirectory(){
+    if(state.businesses === null){
+      var html = '<section class="hero"><div class="eyebrow">A Deepen Benefit</div><h1>Your card.<br><em>Their discount.</em></h1></section>';
+      html += '<div class="grid-wrap"><div class="skeleton-grid">';
+      for(var i=0;i<6;i++){ html += '<div class="skeleton-card" aria-hidden="true"></div>'; }
+      html += '</div></div>';
+      return html;
+    }
+    var cities = Array.from(new Set(state.businesses.map(function(b){return b.city;}))).sort();
+    var filtered = getFiltered();
+    var visible = filtered.slice(0, state.visibleCount);
+
+    var html = '';
+    html += '<section class="hero">';
+    html += '  <div class="eyebrow">'+t('heroEyebrow')+'</div>';
+    html += '  <h1>'+t('heroTitle1')+'<br><em>'+t('heroTitleEm')+'</em></h1>';
+    html += '  <p>'+t('heroSub')+'</p>';
+    html += '</section>';
+
+    html += renderTierCompare();
+
+    html += '<div class="filterbar"><div class="filterbar-inner">';
+    html += '  <div class="search">';
+    html += '    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
+    html += '    <label for="searchInput" class="sr-only">'+t('searchPlaceholder')+'</label>';
+    html += '    <input id="searchInput" type="text" placeholder="'+escapeHtml(t('searchPlaceholder'))+'" value="'+escapeHtml(state.search)+'" />';
+    html += '  </div>';
+    html += '  <div class="chips" id="catChips" role="group" aria-label="Filter by category">';
+    html += '    <button class="chip'+(state.category==='all'?' active':'')+'" data-cat="all" aria-pressed="'+(state.category==='all')+'">'+t('all')+'</button>';
+    CATEGORIES.forEach(function(c){
+      html += '<button class="chip'+(state.category===c.id?' active':'')+'" data-cat="'+c.id+'" aria-pressed="'+(state.category===c.id)+'">'+c.icon(14)+' '+t(c.key)+'</button>';
+    });
+    html += '  </div>';
+    html += '  <label for="cityFilter" class="sr-only">'+t('filterCity')+'</label>';
+    html += '  <select class="cityselect" id="cityFilter">';
+    html += '    <option value="all">'+t('allCities')+'</option>';
+    cities.forEach(function(c){ html += '<option value="'+escapeHtml(c)+'"'+(state.city===c?' selected':'')+'>'+escapeHtml(c)+'</option>'; });
+    html += '  </select>';
+    html += '  <label for="sortSelect" class="sr-only">'+t('filterSort')+'</label>';
+    html += '  <select class="cityselect" id="sortSelect">';
+    html += '    <option value="tier"'+(state.sort==='tier'?' selected':'')+'>'+t('sortTier')+'</option>';
+    html += '    <option value="discount"'+(state.sort==='discount'?' selected':'')+'>'+t('sortDiscount')+'</option>';
+    html += '    <option value="az"'+(state.sort==='az'?' selected':'')+'>'+t('sortAZ')+'</option>';
+    html += '  </select>';
+    html += '</div></div>';
+
+    html += '<div class="grid-wrap">';
+    html += '<div class="count">'+filtered.length+' '+(filtered.length===1?t('partnerAvailable'):t('partnersAvailable'))+'</div>';
+    if(filtered.length === 0){
+      html += '<div class="empty"><div class="display">'+t('noMatches')+'</div>'+t('noMatchesDesc')+'</div>';
+    } else {
+      html += '<div class="grid">';
+      visible.forEach(function(b){ html += bizCard(b); });
+      html += '</div>';
+      if(filtered.length > visible.length){
+        html += '<div class="loadmore-wrap"><button class="btn secondary" id="loadMoreBtn">'+t('showMore')+' ('+(filtered.length - visible.length)+' '+t('left')+')</button></div>';
+      }
+    }
+    html += '</div>';
+
+    return html;
+  }
+
+  function checkOrDash(v){ return v ? '<span class="yes">✓</span>' : '<span class="no">–</span>'; }
+
+  function renderTierCompare(){
+    var ids = Object.keys(TIERS);
+    var html = '<div class="compare-wrap"><h2 class="compare-title">'+t('compareTitle')+'</h2>';
+    html += '<div class="compare-scroll"><table class="compare-table">';
+
+    html += '<thead><tr><th class="rowlabel" scope="col"></th>';
+    ids.forEach(function(id){
+      var tier = TIERS[id];
+      var mine = state.myTier === id;
+      html += '<th class="'+id+(mine?' mine':'')+'" scope="col">';
+      html += '<div class="col-name">'+tier.label+'</div>';
+      html += '<div class="col-how">'+t(tier.howKey)+'</div>';
+      html += '<button class="col-select'+(mine?' current':'')+'" data-mytier="'+id+'">'+(mine?t('yourTierBtn'):t('selectBtn'))+'</button>';
+      html += '</th>';
+    });
+    html += '</tr></thead><tbody>';
+
+    html += '<tr><th scope="row" class="rowlabel">'+t('maxDiscount')+'</th>';
+    ids.forEach(function(id){ html += '<td class="'+(state.myTier===id?'mine':'')+'"><strong>'+TIERS[id].discount+'</strong></td>'; });
+    html += '</tr>';
+
+    html += '<tr><th scope="row" class="rowlabel">'+t('fullDirectory')+'</th>';
+    ids.forEach(function(id){ html += '<td class="'+(state.myTier===id?'mine':'')+'">'+checkOrDash(TIERS[id].directory)+'</td>'; });
+    html += '</tr>';
+
+    html += '<tr><th scope="row" class="rowlabel">'+t('priorityBooking')+'</th>';
+    ids.forEach(function(id){ html += '<td class="'+(state.myTier===id?'mine':'')+'">'+checkOrDash(TIERS[id].priority)+'</td>'; });
+    html += '</tr>';
+
+    html += '<tr><th scope="row" class="rowlabel">'+t('exclusiveEvents')+'</th>';
+    ids.forEach(function(id){ html += '<td class="'+(state.myTier===id?'mine':'')+'">'+checkOrDash(TIERS[id].events)+'</td>'; });
+    html += '</tr>';
+
+    html += '</tbody></table></div></div>';
+    return html;
+  }
+
+  function bizCard(b){
+    var cat = CATEGORIES.filter(function(c){return c.id===b.category;})[0] || CATEGORIES[0];
+    var extra = '';
+    if(b.address || b.hours || b.phone){
+      extra = '<div class="biz-extra">';
+      if(b.address) extra += '<span>'+escapeHtml(b.address)+'</span>';
+      if(b.hours) extra += '<span>'+escapeHtml(b.hours)+'</span>';
+      if(b.phone) extra += '<span>'+escapeHtml(b.phone)+'</span>';
+      extra += '</div>';
+    }
+    var avatar = b.logoUrl
+      ? '<div class="cat-icon logo-icon" style="background:'+hashColor(b.name)+';" title="'+escapeHtml(t(cat.key))+'">' +
+          '<img src="'+escapeHtml(b.logoUrl)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" />' +
+          '<span class="logo-fallback">'+initials(b.name)+'</span>' +
+        '</div>'
+      : '<div class="cat-icon" style="background:'+hashColor(b.name)+'; color:#fff;" title="'+escapeHtml(t(cat.key))+'" aria-hidden="true">'+initials(b.name)+'</div>';
+    return '' +
+    '<div class="card">' +
+    '  <div class="card-top">' +
+    '    '+avatar+
+    '    <div class="tier-chip '+b.tier+'">'+TIERS[b.tier].label+'</div>' +
+    '  </div>' +
+    '  <div>' +
+    '    <p class="biz-name">'+escapeHtml(b.name)+'</p>' +
+    '    <div class="biz-meta">'+iconPin(12)+' '+escapeHtml(b.city)+' · '+t(cat.key)+'</div>' +
+    extra +
+    '    <span class="deepen-badge">'+t('deepenPartner')+'</span>' +
+    '  </div>' +
+    '  <div class="discount-block">' +
+    '    <span class="discount-num">'+b.discount+'%</span>' +
+    '    <span class="discount-label">Off</span>' +
+    '  </div>' +
+    '  <div class="redeem">'+escapeHtml(b.redeem)+'</div>' +
+    '  <div class="biz-links"><a href="'+mapsUrl(b.name,b.city,b.address)+'" target="_blank" rel="noopener noreferrer">'+iconPin(12)+' '+t('directions')+'</a></div>' +
+    '</div>';
+  }
+
+  var debouncedFilterRender = debounce(function(){ render(); }, 220);
+
+  function wireDirectory(){
+    var s = document.getElementById('searchInput');
+    if(s){ s.addEventListener('input', function(e){ state.search = e.target.value; state.visibleCount = 9; renderKeepFocus(); }); }
+    var chips = document.querySelectorAll('#catChips .chip');
+    chips.forEach(function(c){
+      c.addEventListener('click', function(){ state.category = c.getAttribute('data-cat'); state.visibleCount = 9; render(); });
+    });
+    var cityFilter = document.getElementById('cityFilter');
+    if(cityFilter){ cityFilter.addEventListener('change', function(e){ state.city = e.target.value; state.visibleCount = 9; render(); }); }
+    var sortSelect = document.getElementById('sortSelect');
+    if(sortSelect){ sortSelect.addEventListener('change', function(e){ state.sort = e.target.value; render(); }); }
+    var tierSelectBtns = document.querySelectorAll('.col-select');
+    tierSelectBtns.forEach(function(c){
+      c.addEventListener('click', function(){
+        var v = c.getAttribute('data-mytier');
+        saveMyTier(state.myTier === v ? null : v);
+      });
+    });
+    var loadMoreBtn = document.getElementById('loadMoreBtn');
+    if(loadMoreBtn){ loadMoreBtn.addEventListener('click', function(){ state.visibleCount += 9; render(); }); }
+  }
+
+  function renderKeepFocus(){
+    var caret = document.getElementById('searchInput') ? document.getElementById('searchInput').selectionStart : null;
+    render();
+    var s = document.getElementById('searchInput');
+    if(s){ s.focus(); if(caret!==null) s.setSelectionRange(caret, caret); }
+  }
+
+  // ---------------- ADMIN ----------------
+
+  function renderAbout(){
+    var partnerCount = state.businesses ? state.businesses.length : null;
+    var cityCount = state.businesses ? Array.from(new Set(state.businesses.map(function(b){return b.city;}))).length : null;
+
+    var html = '<div class="about-wrap">';
+
+    html += '<section class="hero">';
+    html += '  <div class="eyebrow">'+t('heroEyebrow')+'</div>';
+    html += '  <h1>'+t('whatIsTitle1')+' <em>'+t('whatIsTitleEm')+'</em>?</h1>';
+    html += '  <p>'+t('whatIsIntro')+'</p>';
+    html += '</section>';
+
+    if(partnerCount !== null){
+      html += '<div class="about-stats">';
+      html += '  <div class="stat"><div class="stat-num">'+partnerCount+'</div><div class="stat-label">'+(partnerCount===1?t('statPartnerLocation'):t('statPartnerLocations'))+'</div></div>';
+      html += '  <div class="stat"><div class="stat-num">'+cityCount+'</div><div class="stat-label">'+(cityCount===1?t('statCity'):t('statCities'))+'</div></div>';
+      html += '  <div class="stat"><div class="stat-num">4</div><div class="stat-label">'+t('statTiers')+'</div></div>';
+      html += '</div>';
+    }
+
+    html += '<div class="about-section"><h2>'+t('howItWorks')+'</h2>';
+    html += '<div class="steps">';
+    html += '  <div class="step"><div class="step-num">1</div><div class="step-title">'+t('step1Title')+'</div><div class="step-desc">'+t('step1Desc')+'</div></div>';
+    html += '  <div class="step"><div class="step-num">2</div><div class="step-title">'+t('step2Title')+'</div><div class="step-desc">'+t('step2Desc')+'</div></div>';
+    html += '  <div class="step"><div class="step-num">3</div><div class="step-title">'+t('step3Title')+'</div><div class="step-desc">'+t('step3Desc')+'</div></div>';
+    html += '</div></div>';
+
+    html += '<div class="about-section">';
+    html += renderTierCompare();
+    html += '</div>';
+
+    html += '<div class="about-section"><h2>'+t('partnerCategories')+'</h2>';
+    html += '<div class="cat-grid">';
+    CATEGORIES.forEach(function(c){
+      html += '<div class="cat-tile">'+c.icon(20)+'<span>'+t(c.key)+'</span></div>';
+    });
+    html += '</div></div>';
+
+    html += '<div class="about-section"><h2>'+t('faqTitle')+'</h2>';
+    html += '<div class="faq">';
+    html += faqItem(t('faqQ1'), t('faqA1'));
+    html += faqItem(t('faqQ2'), t('faqA2'));
+    html += faqItem(t('faqQ3'), t('faqA3'));
+    html += faqItem(t('faqQ4'), t('faqA4'));
+    html += '</div></div>';
+
+    html += '</div>';
+    return html;
+  }
+
+  function faqItem(q, a){
+    return '<div class="faq-item"><div class="faq-q">'+q+'</div><div class="faq-a">'+a+'</div></div>';
+  }
+
+  function wireAbout(){
+    var tierSelectBtns = document.querySelectorAll('.col-select');
+    tierSelectBtns.forEach(function(c){
+      c.addEventListener('click', function(){
+        var v = c.getAttribute('data-mytier');
+        saveMyTier(state.myTier === v ? null : v);
+      });
+    });
+  }
+
+  function renderAdmin(){
+    if(!state.unlocked){
+      var lockedNow = Date.now() < state.lockedUntil;
+      var secsLeft = lockedNow ? Math.ceil((state.lockedUntil - Date.now())/1000) : 0;
+      return '' +
+      '<div class="admin-wrap">' +
+      '  <div class="gate">' +
+      '    <div class="lock">'+iconLock(22)+'</div>' +
+      '    <h2>'+t('adminAccessTitle')+'</h2>' +
+      '    <p>'+t('adminAccessDesc')+'</p>' +
+      (state.passError ? '<div class="err" role="alert">'+state.passError+'</div>' : '') +
+      '    <label for="passInput" class="sr-only">'+t('passcodePlaceholder')+'</label>' +
+      '    <input id="passInput" type="password" placeholder="'+escapeHtml(t('passcodePlaceholder'))+'" value="'+escapeHtml(state.passInput)+'" '+(lockedNow?'disabled':'')+' />' +
+      '    <button class="btn" id="unlockBtn" '+(lockedNow?'disabled':'')+'>'+(lockedNow ? t('locked')+' ('+secsLeft+'s)' : t('unlock'))+'</button>' +
+      '    <div class="hint">'+t('adminHint')+'</div>' +
+      '  </div>' +
+      '</div>';
+    }
+
+    if(state.businesses === null){
+      return '<div class="loading"><div class="spin"></div>…</div>';
+    }
+
+    var html = '<div class="admin-wrap">';
+    html += '<div class="admin-head">';
+    html += '  <div><h2>'+t('partnerBusinesses')+'</h2><p class="lastupdated">'+t('updated')+': '+escapeHtml(formatLastUpdated(state.lastUpdated))+'</p></div>';
+    html += '  <div class="admin-toolbar">';
+    html += '    <button class="btn small secondary" id="exportBtn">'+iconExport(14)+' '+t('exportJson')+'</button>';
+    html += '    <label class="btn small secondary" for="importInput" style="cursor:pointer;">'+iconImport(14)+' '+t('importJson')+'</label>';
+    html += '    <input type="file" id="importInput" accept="application/json" class="sr-only" />';
+    html += '    <button class="btn small addbtn" id="addBizBtn">'+iconPlus(15)+' '+t('addBusiness')+'</button>';
+    html += '  </div>';
+    html += '</div>';
+
+    html += '<div class="table-wrap"><table>';
+    html += '<caption class="sr-only">'+t('partnerBusinesses')+'</caption>';
+    html += '<thead><tr><th scope="col">'+t('colName')+'</th><th scope="col">'+t('colCategory')+'</th><th scope="col">'+t('colCity')+'</th><th scope="col">'+t('colDiscount')+'</th><th scope="col">'+t('colTier')+'</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead><tbody>';
+    (state.businesses||[]).forEach(function(b){
+      var cat = CATEGORIES.filter(function(c){return c.id===b.category;})[0];
+      html += '<tr>';
+      html += '<td><strong>'+escapeHtml(b.name)+'</strong></td>';
+      html += '<td>'+(cat?t(cat.key):b.category)+'</td>';
+      html += '<td>'+escapeHtml(b.city)+'</td>';
+      html += '<td class="mono">'+b.discount+'%</td>';
+      html += '<td><span class="tier-chip '+b.tier+'">'+TIERS[b.tier].label+'</span></td>';
+      html += '<td><div class="rowbtns">';
+      html += '<button class="iconbtn" data-edit="'+b.id+'" aria-label="'+t('edit')+' '+escapeHtml(b.name)+'">'+iconEdit(14)+'</button>';
+      html += '<button class="iconbtn del" data-del="'+b.id+'" aria-label="'+t('remove')+' '+escapeHtml(b.name)+'">'+iconTrash(14)+'</button>';
+      html += '</div></td>';
+      html += '</tr>';
+    });
+    if(!state.businesses.length){
+      html += '<tr><td colspan="6" style="text-align:center; color:var(--muted); padding:30px;">'+t('noBusinesses')+'</td></tr>';
+    }
+    html += '</tbody></table></div>';
+    html += '</div>';
+
+    if(state.modal){
+      html += renderModal();
+    }
+    if(state.confirmDialog){
+      html += renderConfirmDialog();
+    }
+
+    return html;
+  }
+
+  function askConfirm(title, message, onYes){
+    state.confirmDialog = { title: title, message: message, onYes: onYes };
+    render();
+  }
+
+  function renderConfirmDialog(){
+    var c = state.confirmDialog;
+    return '' +
+    '<div class="modal-overlay" id="confirmOverlay">' +
+    '  <div class="modal confirm-modal">' +
+    '    <h3>'+c.title+'</h3>' +
+    '    <p class="confirm-msg">'+c.message+'</p>' +
+    '    <div class="modal-actions">' +
+    '      <button class="btn secondary" id="confirmNo" style="width:auto; flex:1;">'+t('cancel')+'</button>' +
+    '      <button class="btn danger" id="confirmYes" style="width:auto; flex:1;">'+t('confirmBtn')+'</button>' +
+    '    </div>' +
+    '  </div>' +
+    '</div>';
+  }
+
+  function renderModal(){
+    var isEdit = state.modal.mode === 'edit';
+    var d = state.modal.data;
+    var catOptions = CATEGORIES.map(function(c){
+      return '<option value="'+c.id+'"'+(d.category===c.id?' selected':'')+'>'+t(c.key)+'</option>';
+    }).join('');
+    var tierOptions = Object.keys(TIERS).map(function(tid){
+      return '<option value="'+tid+'"'+(d.tier===tid?' selected':'')+'>'+TIERS[tid].label+'</option>';
+    }).join('');
+
+    return '' +
+    '<div class="modal-overlay" id="modalOverlay">' +
+    '  <div class="modal">' +
+    '    <h3>'+(isEdit ? t('editBusinessTitle') : t('addBusinessTitle'))+'</h3>' +
+    '    <div class="field"><label>'+t('fieldName')+'</label><input id="f_name" type="text" value="'+escapeHtml(d.name||'')+'" placeholder="e.g. FitZone Gym" /></div>' +
+    '    <div class="field-row">' +
+    '      <div class="field"><label>'+t('fieldCategory')+'</label><select id="f_category">'+catOptions+'</select></div>' +
+    '      <div class="field"><label>'+t('fieldCity')+'</label><input id="f_city" type="text" value="'+escapeHtml(d.city||'')+'" placeholder="e.g. Tashkent" /></div>' +
+    '    </div>' +
+    '    <div class="field-row">' +
+    '      <div class="field"><label>'+t('fieldDiscount')+'</label><input id="f_discount" type="number" min="0" max="100" value="'+(d.discount!==undefined?d.discount:'')+'" placeholder="25" /></div>' +
+    '      <div class="field"><label>'+t('fieldTier')+'</label><select id="f_tier">'+tierOptions+'</select></div>' +
+    '    </div>' +
+    '    <div class="field"><label>'+t('fieldRedeem')+'</label><input id="f_redeem" type="text" value="'+escapeHtml(d.redeem||'')+'" placeholder="'+escapeHtml(t('placeholderRedeem'))+'" /></div>' +
+    '    <div class="field"><label>'+t('fieldAddress')+'</label><input id="f_address" type="text" value="'+escapeHtml(d.address||'')+'" placeholder="'+escapeHtml(t('placeholderAddress'))+'" /></div>' +
+    '    <div class="field"><label>'+t('fieldLogoUrl')+'</label><input id="f_logoUrl" type="url" value="'+escapeHtml(d.logoUrl||'')+'" placeholder="https://…" /></div>' +
+    '    <div class="field-row">' +
+    '      <div class="field"><label>'+t('fieldHours')+'</label><input id="f_hours" type="text" value="'+escapeHtml(d.hours||'')+'" placeholder="'+escapeHtml(t('placeholderHours'))+'" /></div>' +
+    '      <div class="field"><label>'+t('fieldPhone')+'</label><input id="f_phone" type="text" value="'+escapeHtml(d.phone||'')+'" placeholder="'+escapeHtml(t('placeholderPhone'))+'" /></div>' +
+    '    </div>' +
+    (state.modal.error ? '<div class="err" role="alert">'+state.modal.error+'</div>' : '') +
+    '    <div class="modal-actions">' +
+    '      <button class="btn secondary" id="modalCancel" style="width:auto; flex:1;">'+t('cancel')+'</button>' +
+    '      <button class="btn" id="modalSave" style="width:auto; flex:1;">'+(isEdit?t('save'):t('addBusiness'))+'</button>' +
+    '    </div>' +
+    '  </div>' +
+    '</div>';
+  }
+
+  function wireAdmin(){
+    if(!state.unlocked){
+      var input = document.getElementById('passInput');
+      var btn = document.getElementById('unlockBtn');
+      if(input && !input.disabled){
+        input.addEventListener('input', function(e){ state.passInput = e.target.value; });
+        input.addEventListener('keydown', function(e){ if(e.key==='Enter') tryUnlock(); });
+      }
+      if(btn && !btn.disabled){ btn.addEventListener('click', tryUnlock); }
+      if(Date.now() < state.lockedUntil){
+        setTimeout(function(){ if(state.tab==='admin') render(); }, 1000);
+      }
+      return;
+    }
+
+    var addBtn = document.getElementById('addBizBtn');
+    if(addBtn){ addBtn.addEventListener('click', function(){
+      state.modal = { mode:'add', data:{ category:'gyms', tier:'classic' }, error:'' };
+      render();
+    }); }
+
+    var exportBtn = document.getElementById('exportBtn');
+    if(exportBtn){ exportBtn.addEventListener('click', function(){
+      var blob = new Blob([JSON.stringify(state.businesses, null, 2)], {type:'application/json'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'wellpass-businesses.json';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Exported businesses.json');
+    }); }
+
+    var importInput = document.getElementById('importInput');
+    if(importInput){ importInput.addEventListener('change', function(e){
+      var file = e.target.files[0];
+      if(!file) return;
+      var reader = new FileReader();
+      reader.onload = function(){
+        try{
+          var parsed = JSON.parse(reader.result);
+          if(!Array.isArray(parsed)) throw new Error('not an array');
+          var valid = parsed.every(function(b){ return b && b.name && b.category && b.city && typeof b.discount==='number' && TIERS[b.tier]; });
+          if(!valid) throw new Error('bad shape');
+          var oldCount = state.businesses.length, newCount = parsed.length;
+          askConfirm(
+            t('confirmReplaceTitle'),
+            t('confirmReplaceMsg').replace('{n}', oldCount).replace('{m}', newCount),
+            function(){
+              state.businesses = parsed;
+              saveBusinesses();
+              render();
+              showToast('Imported '+parsed.length+' businesses');
+            }
+          );
+        } catch(err){
+          showToast(t('invalidImportFile'));
+        }
+      };
+      reader.readAsText(file);
+      importInput.value = '';
+    }); }
+
+    document.querySelectorAll('[data-edit]').forEach(function(el){
+      el.addEventListener('click', function(){
+        var id = Number(el.getAttribute('data-edit'));
+        var biz = state.businesses.filter(function(b){return b.id===id;})[0];
+        state.modal = { mode:'edit', data: Object.assign({}, biz), error:'' };
+        render();
+      });
+    });
+
+    document.querySelectorAll('[data-del]').forEach(function(el){
+      el.addEventListener('click', function(){
+        var id = Number(el.getAttribute('data-del'));
+        var biz = state.businesses.filter(function(b){return b.id===id;})[0];
+        if(!biz) return;
+        askConfirm(
+          t('confirmDeleteTitle'),
+          t('confirmDeleteMsg').replace('{name}', biz.name),
+          function(){
+            state.businesses = state.businesses.filter(function(b){return b.id!==id;});
+            saveBusinesses();
+            render();
+            showToast('Removed '+biz.name);
+          }
+        );
+      });
+    });
+
+    if(state.modal){
+      var overlay = document.getElementById('modalOverlay');
+      var modalBox = overlay.querySelector('.modal');
+      overlay.addEventListener('click', function(e){ if(e.target===overlay){ state.modal=null; render(); } });
+      document.getElementById('modalCancel').addEventListener('click', function(){ state.modal=null; render(); });
+
+      var firstField = document.getElementById('f_name');
+      if(firstField){ firstField.focus(); }
+
+      function getFocusable(){
+        return Array.prototype.slice.call(modalBox.querySelectorAll('input, select, button')).filter(function(el){ return !el.disabled; });
+      }
+      modalBox.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){
+          e.stopPropagation();
+          state.modal = null;
+          render();
+          return;
+        }
+        if(e.key === 'Tab'){
+          var focusable = getFocusable();
+          if(!focusable.length) return;
+          var first = focusable[0], last = focusable[focusable.length-1];
+          if(e.shiftKey && document.activeElement === first){
+            e.preventDefault(); last.focus();
+          } else if(!e.shiftKey && document.activeElement === last){
+            e.preventDefault(); first.focus();
+          }
+        }
+      });
+      document.getElementById('modalSave').addEventListener('click', function(){
+        var name = document.getElementById('f_name').value.trim();
+        var category = document.getElementById('f_category').value;
+        var city = document.getElementById('f_city').value.trim();
+        var discount = Number(document.getElementById('f_discount').value);
+        var tier = document.getElementById('f_tier').value;
+        var redeem = document.getElementById('f_redeem').value.trim();
+        var address = document.getElementById('f_address').value.trim();
+        var logoUrl = document.getElementById('f_logoUrl').value.trim();
+        var hours = document.getElementById('f_hours').value.trim();
+        var phone = document.getElementById('f_phone').value.trim();
+
+        if(!name || !city || !redeem || isNaN(discount) || discount < 0 || discount > 100){
+          state.modal.error = t('fillEveryField');
+          render();
+          return;
+        }
+
+        if(state.modal.mode === 'add'){
+          var maxId = state.businesses.reduce(function(m,b){return Math.max(m,b.id);}, 0);
+          state.businesses.push({ id: maxId+1, name:name, category:category, city:city, discount:discount, tier:tier, redeem:redeem, address:address, logoUrl:logoUrl, hours:hours, phone:phone });
+          showToast('Added '+name);
+        } else {
+          var idx = state.businesses.findIndex(function(b){return b.id===state.modal.data.id;});
+          state.businesses[idx] = Object.assign({}, state.modal.data, { name:name, category:category, city:city, discount:discount, tier:tier, redeem:redeem, address:address, logoUrl:logoUrl, hours:hours, phone:phone });
+          showToast('Saved '+name);
+        }
+        saveBusinesses();
+        state.modal = null;
+        render();
+      });
+    }
+
+    if(state.confirmDialog){
+      var confirmOverlay = document.getElementById('confirmOverlay');
+      var closeConfirm = function(){ state.confirmDialog = null; render(); };
+      confirmOverlay.addEventListener('click', function(e){ if(e.target===confirmOverlay){ closeConfirm(); } });
+      confirmOverlay.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeConfirm(); } });
+      document.getElementById('confirmNo').addEventListener('click', closeConfirm);
+      document.getElementById('confirmYes').addEventListener('click', function(){
+        var onYes = state.confirmDialog.onYes;
+        state.confirmDialog = null;
+        if(onYes) onYes();
+      });
+      var confirmYesBtn = document.getElementById('confirmYes');
+      if(confirmYesBtn){ confirmYesBtn.focus(); }
+    }
+  }
+
+  function tryUnlock(){
+    if(Date.now() < state.lockedUntil) return;
+    if(state.passInput === ADMIN_CODE){
+      state.unlocked = true;
+      state.passError = '';
+      state.failedAttempts = 0;
+    } else {
+      state.failedAttempts++;
+      if(state.failedAttempts >= 5){
+        state.lockedUntil = Date.now() + 30000;
+        state.failedAttempts = 0;
+        state.passError = t('tooManyAttempts');
+      } else {
+        state.passError = t('incorrectPass');
+      }
+    }
+    render();
+  }
+
+  // ---------------- ICONS ----------------
+  function iconDumbbell(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 7v10M18 7v10M2 10v4M22 10v4M6 12h12"/></svg>'; }
+  function iconSneaker(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c0-2 1-3 3-4l5-2 3-3 4 2c2 1 3 2 3 4v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M8 13v-3"/></svg>'; }
+  function iconChef(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13a4 4 0 0 1-1-7.9A4.5 4.5 0 0 1 12 3a4.5 4.5 0 0 1 7 4.1A4 4 0 0 1 18 13"/><path d="M6 13h12v6a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z"/></svg>'; }
+  function iconLeaf(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 3 17 3s2 5-1 8c-.8.8-3 2-3 2v7"/></svg>'; }
+  function iconBag(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l1 12H5z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>'; }
+  function iconPin(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>'; }
+  function iconLock(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>'; }
+  function iconPlus(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'; }
+  function iconEdit(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>'; }
+  function iconTrash(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>'; }
+  function iconExport(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg>'; }
+  function iconImport(s){ return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>'; }
+
+  loadBusinesses();
+})();
+</script>
+</body>
+</html>
